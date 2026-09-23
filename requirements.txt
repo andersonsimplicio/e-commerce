@@ -1,0 +1,5 @@
+PyJWT==2.14.0
+django-ninja==1.7.1
+pip-chill==1.0.5
+pydantic_core==2.46.5
+python-decouple==3.8
