@@ -1,6 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
-
+from django.conf import settings
 
 
 class Produto(models.Model):
@@ -15,7 +14,11 @@ class Produto(models.Model):
         return f"Nome: {self.nome} "
     
 class Ordem(models.Model):
-    usuario= models.ForeignKey(User, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="ordens",
+    )
     produto = models.ManyToManyField(Produto, through="OrdemItem")
     total = models.DecimalField(max_digits=10,decimal_places=2)
     status = models.CharField(max_length=20, default='pendencia')

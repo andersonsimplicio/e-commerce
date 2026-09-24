@@ -1,6 +1,7 @@
 from ninja import Schema
 from decimal import Decimal
 from datetime import datetime
+from uuid import UUID
 
 class ProdutoSchema(Schema):
     id:int
@@ -23,7 +24,7 @@ class OrdemCriacaoScehma(Schema):
     
 class OrdemScehma(Schema):
     id: int
-    usuario_id: int
+    usuario_id: UUID
     total: Decimal
     status: str
     criado_em: datetime

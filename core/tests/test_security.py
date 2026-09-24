@@ -1,10 +1,13 @@
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from datetime import datetime, timedelta, timezone
 from django.test import TestCase
 import jwt
-from core.security import create_jwt_token, decode_jwt_token
+from core.security import create_jwt_token, decode_jwt_token,AuthBearer
 from django.conf import settings
-from core.security import create_jwt_token, decode_jwt_token, AuthBearer
+
+
+
+User = get_user_model()
 
 class TestCaseJWT(TestCase):
     def setUp(self):
@@ -20,7 +23,7 @@ class TestCaseJWT(TestCase):
         self.assertIsInstance(token,str)
         payload = decode_jwt_token(token)
         self.assertIsNotNone(payload)
-        self.assertEqual(payload["user_id"], self.user.id)
+        self.assertEqual(payload["user_id"], str(self.user.id))
         self.assertEqual(payload["username"], self.user.username)
         self.assertIn("exp", payload)
     
@@ -33,7 +36,7 @@ class TestCaseJWT(TestCase):
         # Simula um token criado já no passado (expirado há 10 segundos)
         data_passada = datetime.now(timezone.utc) - timedelta(seconds=10)
         payload_expirado = {
-            "user_id": self.user.id,
+            "user_id": str(self.user.id),
             "username": self.user.username,
             "exp": data_passada,
         }
