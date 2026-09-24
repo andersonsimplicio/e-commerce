@@ -5,17 +5,14 @@ from datetime import datetime
 class ProdutoSchema(Schema):
     id:int
     nome:str
-    descicao:str
+    descricao:str
     preco:Decimal
-    quantidade:int 
    
     
 class ProdutoCriadoSchema(Schema):
-    id: int
     nome:str
-    descicao:str
+    descricao:str
     preco:Decimal
-    quantidade:int 
     
 class OrdemItemScehma(Schema):
     produyto_id: int

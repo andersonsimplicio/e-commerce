@@ -1,6 +1,4 @@
 cat << 'EOF' > .gitignore
-
-
 # Ambientes virtuais
 .venv/
 venv/

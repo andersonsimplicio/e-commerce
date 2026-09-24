@@ -1,6 +1,6 @@
 from ninja import NinjaAPI
 from ninja import NinjaAPI
-from store.router import ordem_router, produtos_router
+from apps.store.router import ordem_router, produtos_router
 
 
 api = NinjaAPI(title="Ecommerce API")
