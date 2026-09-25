@@ -1,40 +1,74 @@
 # E-Commerce API (Django Ninja)
 
-API RESTful desenvolvida com Django Ninja e gerenciada via `uv`.
+API RESTful para e-commerce desenvolvida com Django, Django Ninja e autenticação JWT, gerenciada com `uv` e suporte a Docker.
 
 ## 🚀 Tecnologias
 
-- Python 3.12+
-- Django & Django Ninja
-- Gerenciador de pacotes: `uv`
+- **Linguagem:** Python 3.12+
+- **Framework:** Django & Django Ninja
+- **Autenticação:** JWT (JSON Web Tokens) com UUID nativo para usuários
+- **Gerenciador de Ambientes e Dependências:** [uv](https://github.com/astral-sh/uv)
+- **Containerização:** Docker & Docker Compose
 
-## 🛠️ Como rodar localmente
+---
 
-1. Clone o repositório:
+## 🛠️ Como Rodar Localmente (com `uv`)
 
-   ```bash
-   git clone https://github.com/andersonsimplicio/e-commerce
-   cd e-commerce
-   ```
+### 1. Pré-requisitos
+Certifique-se de ter o `git` e o `uv` instalados na sua máquina:
+```bash
+# Instalação do uv (se ainda não possuir)
+curl -LsSf [https://astral.sh/uv/install.sh](https://astral.sh/uv/install.sh) | sh
+```
 
-2. Crie e ative a venv:
+### 2. Clonar e sincronizar o ambiente
+```bash
+git clone [https://github.com/andersonsimplicio/e-commerce.git](https://github.com/andersonsimplicio/e-commerce.git)
+cd e-commerce
 
-   ```bash
-   uv venv
-   source .venv/bin/activate
-   ```
+# Instala a versão correta do Python e todas as dependências travadas no uv.lock
+uv sync
+```
 
-3. Instale as dependências:
+### 3. Configurar variáveis de ambiente
+```bash
+cp .env.example .env
+```
 
-   ```bash
-    uv pip install django django-ninja
-   ```
+### 4. Executar migrações e testes
+```bash
+uv run python manage.py migrate
+uv run python manage.py test
+```
 
-4. Execute as migrações e o servidor:
+### 5. Iniciar o servidor de desenvolvimento
 
-   ```bash
-   python manage.py migrate
-   python manage.py runserver
-   ```
+```bash
+uv run python manage.py runserver
+```
 
-Docs interativas disponíveis em: `http://127.0.0.1:8000/api/docs`
+#### Acesse a documentação interativa (Swagger OpenAPI) em:
+
+#### 👉 http://127.0.0.1:8000/api/docs
+
+### Como Rodar com Docker
+#### Se preferir rodar toda a aplicação e serviços auxiliares via contêineres:
+
+```bash
+docker compose up -d --build
+docker compose exec web python manage.py migrate
+docker compose exec web python manage.py test
+```
+
+#### Como Rodar com Docker
+
+##### Rodar todos os testes
+
+```bash
+uv run python manage.py test
+```
+#### Rodar apenas testes de autenticação/usuários
+
+```bash
+uv run python manage.py test apps.users
+```
